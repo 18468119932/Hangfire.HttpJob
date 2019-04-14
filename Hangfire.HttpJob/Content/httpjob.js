@@ -62,7 +62,7 @@
                     '<div class="modal-dialog">' +
                     '<div class="modal-content">' +
                     '<div class="modal-header">' +
-                '<h4 class="modal-title">' + config.AddRecurringJobHttpJobButtonName + '</h4>' +
+                '<h4 class="modal-title" id="httpJobTitle">' + config.AddRecurringJobHttpJobButtonName + '</h4>' +
                     '</div>' +
                     '<div class="modal-body">' +
                     '<div class="editor_holder" style="height: 250px;"></div>' +
@@ -92,6 +92,7 @@
                 window.jsonEditor.setText(normal_templete);
                 window.jsonEditor.format();
                 $('#httpJobModal').modal({ backdrop: 'static', keyboard: false });
+                $('#httpJobTitle').html(config.AddHttpJobButtonName);
                 $('#httpJobModal').modal('show');
             });
 
@@ -99,6 +100,7 @@
                 window.jsonEditor.setText(recurring_templete);
                 window.jsonEditor.format();
                 $('#httpJobModal').modal({ backdrop: 'static', keyboard: false });
+                $('#httpJobTitle').html(config.AddRecurringJobHttpJobButtonName);
                 $('#httpJobModal').modal('show');
             });
 
@@ -112,7 +114,7 @@
                 if (!key) return;
                 var settings = {
                     "async": true,
-                    "url": "/hangfire/httpjob?op=getdetailjobset&key=" + key,
+                    "url": config.JobDetailUrl+"&key=" + key,
                     "method": "POST"
                 }
                 $.ajax(settings).done(function (response) {
@@ -120,6 +122,7 @@
                     window.jsonEditor.setText(JSON.stringify(response));
                     window.jsonEditor.format();
                     $('#httpJobModal').modal({ backdrop: 'static', keyboard: false });
+                    $('#httpJobTitle').html(config.UpdteRecurringJobHttpJobButtonName);
                     $('#httpJobModal').modal('show');
                 }).fail(function () {
                     alert("error");
